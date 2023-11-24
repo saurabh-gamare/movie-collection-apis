@@ -17,8 +17,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from movies import views as movie_views
+from accounts import views as account_views
+from middleware_tasks import views as middleware_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('movies/', movie_views.MovieList.as_view(), name='movie-list')
+    path('movies/', movie_views.MovieList.as_view(), name='movie-list'),
+    path('register/', account_views.Register.as_view(), name='register'),
+    path('collection/', movie_views.MovieCollection.as_view(), name='collection'),
+    path('collection/<str:uuid>/', movie_views.UpdateDeleteMovieCollection.as_view(), name='update-delete-collection'),
+    path('request-count/', middleware_views.RequestCount.as_view(), name='request-count'),
+    path('request-count/reset/', middleware_views.RequestCountReset.as_view(), name='request-count-reset'),
 ]
